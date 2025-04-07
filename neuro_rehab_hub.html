@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NöroRehab Assess Hub</title>
+    <meta name="description" content="Nörolojik rehabilitasyon alanında çalışan fizyoterapistler için değerlendirme testleri ve hastalık bilgisi kaynağı.">
+
+    <!-- Bootstrap CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- Özel Stiller -->
+    <style>
+        body {
+            padding-top: 56px; /* Sabit navbar için */
+            background-color: #f8f9fa; /* Açık gri arka plan */
+        }
+        .content-section {
+            display: none; /* Başlangıçta tüm bölümleri gizle */
+            padding-top: 20px;
+            padding-bottom: 40px;
+        }
+        .content-section.active {
+            display: block; /* Aktif bölümü göster */
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .card {
+           transition: transform 0.2s ease-in-out;
+           border: none; /* Kart kenarlıklarını kaldır */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,.15);
+        }
+        .list-group-item-action:hover {
+            background-color: #e9ecef;
+        }
+        .breadcrumb {
+            background-color: #e9ecef;
+            padding: 0.75rem 1rem;
+            border-radius: 0.25rem;
+        }
+        h2 i, h4 i { /* Başlıklardaki ikonlara biraz boşluk */
+            margin-right: 8px;
+        }
+        /* Görseller için basit stil */
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #dee2e6; /* Hafif kenarlık */
+        }
+        .accordion-button:not(.collapsed) {
+            color: #0d6efd; /* Açık akordiyon başlık rengi */
+            background-color: #e7f1ff; /* Açık akordiyon arka planı */
+        }
+        .footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+        /* Daha okunaklı listeler */
+        section ul, section ol {
+            padding-left: 2rem;
+        }
+        section li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasyon Çubuğu -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home" onclick="showSection('home', this)">
+                <!-- <img src="logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top me-2"> -->
+                NöroRehab Assess Hub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home" onclick="showSection('home', this)">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#conditions-list" onclick="showSection('conditions-list', this)">Hastalıklar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tests-list" onclick="showSection('tests-list', this)">Testler</a>
+                    </li>
+                    <!-- İsteğe bağlı: Hakkında bölümü eklenebilir -->
+                    <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about" onclick="showSection('about', this)">Hakkında</a>
+                    </li>
+                    -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ana İçerik Alanı -->
+    <div class="container" id="main-content">
+
+        <!-- Bölüm: Ana Sayfa -->
+        <section id="home" class="content-section active">
+            <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+                <div class="container-fluid py-5">
+                  <h1 class="display-5 fw-bold">NöroRehab Assess Hub'a Hoş Geldiniz!</h1>
+                  <p class="col-md-10 fs-5">Nörolojik rehabilitasyon alanında çalışan fizyoterapistler için tasarlanmış bu kaynakta, sık karşılaşılan nörolojik hastalıklarda kullanılan değerlendirme testleri hakkında **çok detaylı**, pratik ve güncel bilgilere ulaşabilirsiniz.</p>
+                  <p>Amacımız, klinik karar verme sürecinizi desteklemek ve hasta değerlendirmelerinizi zenginleştirmek için güvenilir bir başvuru noktası olmaktır.</p>
+                  <a href="#conditions-list" onclick="showSection('conditions-list', document.querySelector('a[href=\'#conditions-list\']'))" class="btn btn-primary btn-lg me-2 mt-3" type="button"><i class="bi bi-heart-pulse me-2"></i>Hastalıkları Keşfet</a>
+                  <a href="#tests-list" onclick="showSection('tests-list', document.querySelector('a[href=\'#tests-list\']'))" class="btn btn-secondary btn-lg mt-3" type="button"><i class="bi bi-clipboard2-pulse me-2"></i>Testleri İncele</a>
+                </div>
+              </div>
+
+              <!-- Site Nasıl Kullanılır? -->
+              <section class="how-to-use mb-5">
+                <h2 class="pb-2 border-bottom mb-4"><i class="bi bi-question-circle me-2"></i>Site Nasıl Kullanılır?</h2>
+                <div class="row g-4">
+                  <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                      <div class="card-body text-center">
+                        <i class="bi bi-search display-4 text-primary mb-3"></i>
+                        <h5 class="card-title">1. Hastalık Seçin</h5>
+                        <p class="card-text">İlgilendiğiniz durumu <a href="#conditions-list" onclick="showSection('conditions-list', document.querySelector('a[href=\'#conditions-list\']'))">Hastalıklar</a> listesinden bulun.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                      <div class="card-body text-center">
+                        <i class="bi bi-list-check display-4 text-success mb-3"></i>
+                        <h5 class="card-title">2. Önerilen Testleri Görün</h5>
+                        <p class="card-text">Hastalık sayfasında, o duruma özel testlerin listesini inceleyin.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                      <div class="card-body text-center">
+                        <i class="bi bi-file-earmark-text display-4 text-info mb-3"></i>
+                        <h5 class="card-title">3. Test Detaylarını Öğrenin</h5>
+                        <p class="card-text">Testlere tıklayarak amaçları, uygulama, puanlama ve yorumlama bilgilerine ulaşın.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+             <!-- Hızlı Erişim Bölümleri -->
+              <div class="row mb-5">
+                <!-- Popüler Hastalıklar -->
+                <div class="col-lg-6">
+                  <h2 class="pb-2 border-bottom mb-4"><i class="bi bi-star-fill me-2 text-warning"></i>Popüler Hastalıklar</h2>
+                  <div class="list-group shadow-sm">
+                      <a href="#condition-stroke" onclick="showSection('condition-stroke')" class="list-group-item list-group-item-action">İnme (SVO)</a>
+                      <a href="#condition-parkinsons" onclick="showSection('condition-parkinsons')" class="list-group-item list-group-item-action">Parkinson Hastalığı</a>
+                      <!-- PLACEHOLDER: Buraya diğer popüler hastalık linkleri eklenecek (max 3-4 tane daha) -->
+                      <a href="#conditions-list" onclick="showSection('conditions-list', document.querySelector('a[href=\'#conditions-list\']'))" class="list-group-item list-group-item-action list-group-item-light text-center">Tüm Hastalıkları Gör...</a>
+                  </div>
+                </div>
+
+                <!-- Sık Kullanılan Testler -->
+                <div class="col-lg-6 mt-4 mt-lg-0">
+                   <h2 class="pb-2 border-bottom mb-4"><i class="bi bi-check2-circle me-2 text-success"></i>Sık Kullanılan Testler</h2>
+                   <div class="list-group shadow-sm">
+                      <a href="#test-bbs" onclick="showSection('test-bbs')" class="list-group-item list-group-item-action">Berg Denge Ölçeği (BBS)</a>
+                      <a href="#test-tug" onclick="showSection('test-tug')" class="list-group-item list-group-item-action">Timed Up and Go (TUG)</a>
+                      <a href="#test-mas" onclick="showSection('test-mas')" class="list-group-item list-group-item-action">Modifiye Ashworth Skalası (MAS)</a>
+                       <!-- PLACEHOLDER: Buraya diğer sık kullanılan test linkleri eklenecek (max 1-2 tane daha) -->
+                      <a href="#tests-list" onclick="showSection('tests-list', document.querySelector('a[href=\'#tests-list\']'))" class="list-group-item list-group-item-action list-group-item-light text-center">Tüm Testleri Gör...</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Yasal Uyarı -->
+              <section class="disclaimer mt-5 p-4 bg-warning-subtle border border-warning rounded">
+                  <h4 class="text-warning-emphasis"><i class="bi bi-exclamation-triangle-fill me-2"></i>Önemli Uyarı</h4>
+                  <p>Bu web sitesinde yer alan bilgiler, nörolojik rehabilitasyon alanında çalışan sağlık profesyonelleri (özellikle fizyoterapistler) için bir **eğitim ve referans kaynağı** olarak hazırlanmıştır. Burada sunulan bilgiler, **asla bireysel hasta değerlendirmesi ve profesyonel klinik yargının yerine geçmez.**</p>
+                  <p class="mb-0">Tedavi kararları ve değerlendirme yöntemlerinin seçimi, her zaman hastanın özgün durumu, ihtiyaçları, güncel klinik durumu ve terapistin profesyonel muhakemesi doğrultusunda yapılmalıdır.</p>
+              </section>
+        </section>
+
+        <!-- Bölüm: Hastalık Listesi -->
+        <section id="conditions-list" class="content-section">
+            <h1 class="mb-4">Nörolojik Hastalıklar</h1>
+            <p class="lead mb-4">Nörolojik rehabilitasyonda sık karşılaşılan hastalıklar ve durumlar listelenmiştir. Detaylı bilgi ve önerilen testler için bir hastalığa tıklayın.</p>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <!-- Örnek Hastalık Kartı -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="placeholder.png" class="card-img-top" alt="İnme için görsel" style="max-height: 180px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">İnme (Serebrovasküler Olay - SVO)</h5>
+                            <p class="card-text small text-muted flex-grow-1">Beyin damarlarında tıkanma veya kanama sonucu oluşan nörolojik hasar. Hemiparezi, duyu kaybı, denge sorunları gibi çeşitli sekellere yol açabilir.</p>
+                            <a href="#condition-stroke" onclick="showSection('condition-stroke')" class="btn btn-outline-primary mt-auto stretched-link">Detayları Gör <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Örnek Hastalık Kartı -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="placeholder.png" class="card-img-top" alt="Parkinson için görsel" style="max-height: 180px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Parkinson Hastalığı</h5>
+                            <p class="card-text small text-muted flex-grow-1">Genellikle tremor, rijidite, bradikinezi ve postural instabilite ile karakterize ilerleyici nörodejeneratif bir hastalıktır.</p>
+                            <a href="#condition-parkinsons" onclick="showSection('condition-parkinsons')" class="btn btn-outline-primary mt-auto stretched-link">Detayları Gör <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Örnek Hastalık Kartı -->
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="placeholder.png" class="card-img-top" alt="MS için görsel" style="max-height: 180px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Multipl Skleroz (MS)</h5>
+                            <p class="card-text small text-muted flex-grow-1">Merkezi sinir sisteminin (beyin ve omurilik) demiyelinizan, otoimmün bir hastalığıdır. Çok çeşitli nörolojik belirtilere neden olabilir.</p>
+                            <a href="#condition-ms" onclick="showSection('condition-ms')" class="btn btn-outline-primary mt-auto stretched-link">Detayları Gör <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PLACEHOLDER: Buraya diğer 20+ hastalık için kartlar eklenecek. -->
+                <!-- Örnek bir placeholder kart -->
+                 <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="placeholder.png" class="card-img-top" alt="Placeholder Hastalık" style="max-height: 180px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Omurilik Yaralanması (SCI)</h5>
+                            <p class="card-text small text-muted flex-grow-1">Omuriliğin travmatik veya nontravmatik hasarı sonucu oluşan, motor ve duyu kayıplarıyla karakterize durum.</p>
+                             <a href="#condition-sci" onclick="showSection('condition-sci')" class="btn btn-outline-primary mt-auto stretched-link">Detayları Gör <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="placeholder.png" class="card-img-top" alt="Placeholder Hastalık" style="max-height: 180px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Travmatik Beyin Yaralanması (TBI)</h5>
+                            <p class="card-text small text-muted flex-grow-1">Dış bir kuvvetin neden olduğu beyin hasarı. Fiziksel, bilişsel ve davranışsal sorunlara yol açabilir.</p>
+                             <a href="#condition-tbi" onclick="showSection('condition-tbi')" class="btn btn-outline-primary mt-auto stretched-link">Detayları Gör <i class="bi bi-arrow-right-short"></i></a>
+                        </div>
+                    </div>
+                </div>
+                 <!-- ... diğer kartlar ... -->
+
+            </div>
+        </section>
+
+        <!-- Bölüm: Test Listesi -->
+        <section id="tests-list" class="content-section">
+            <h1 class="mb-4">Nörolojik Değerlendirme Testleri</h1>
+            <p class="lead mb-4">Nörolojik rehabilitasyonda kullanılan çeşitli değerlendirme testleri ve ölçekler aşağıda kategorize edilmiştir. Bir teste tıklayarak amacı, uygulaması, puanlaması ve yorumlaması hakkında detaylı bilgi edinin.</p>
+
+             <!-- Test Kategorileri (Akordiyon) -->
+             <div class="accordion" id="testCategoriesAccordionList">
+
+                 <!-- Kategori: Denge Testleri -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingDengeList">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDengeList" aria-expanded="false" aria-controls="collapseDengeList">
+                      <strong><i class="bi bi-person-arms-up"></i> Denge Testleri</strong>
+                    </button>
+                  </h2>
+                  <div id="collapseDengeList" class="accordion-collapse collapse" aria-labelledby="headingDengeList" data-bs-parent="#testCategoriesAccordionList">
+                    <div class="accordion-body">
+                       <div class="list-group list-group-flush">
+                          <a href="#test-bbs" onclick="showSection('test-bbs')" class="list-group-item list-group-item-action">Berg Denge Ölçeği (BBS)</a>
+                          <a href="#test-tug" onclick="showSection('test-tug')" class="list-group-item list-group-item-action">Timed Up and Go (TUG)</a>
+                          <!-- PLACEHOLDER: Buraya diğer denge testleri için linkler eklenecek -->
+                          <a href="#test-frt" onclick="showSection('test-frt')" class="list-group-item list-group-item-action">Fonksiyonel Uzanma Testi (FRT)</a>
+                          <a href="#test-poma" onclick="showSection('test-poma')" class="list-group-item list-group-item-action">Tinetti POMA</a>
+                          <a href="#test-dgi" onclick="showSection('test-dgi')" class="list-group-item list-group-item-action">Dinamik Yürüme İndeksi (DGI)</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                 <!-- Kategori: Yürüme ve Mobilite Testleri -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingYurumeList">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseYurumeList" aria-expanded="false" aria-controls="collapseYurumeList">
+                      <strong><i class="bi bi-person-walking"></i> Yürüme ve Mobilite Testleri</strong>
+                    </button>
+                  </h2>
+                  <div id="collapseYurumeList" class="accordion-collapse collapse" aria-labelledby="headingYurumeList" data-bs-parent="#testCategoriesAccordionList">
+                    <div class="accordion-body">
+                       <div class="list-group list-group-flush">
+                          <a href="#test-10mwt" onclick="showSection('test-10mwt')" class="list-group-item list-group-item-action">10 Metre Yürüme Testi (10MWT)</a>
+                          <a href="#test-6mwt" onclick="showSection('test-6mwt')" class="list-group-item list-group-item-action">6 Dakika Yürüme Testi (6MWT)</a>
+                          <!-- PLACEHOLDER: Buraya diğer yürüme testleri için linkler eklenecek -->
+                           <a href="#test-fga" onclick="showSection('test-fga')" class="list-group-item list-group-item-action">Fonksiyonel Yürüme Değerlendirmesi (FGA)</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Kategori: Tonus ve Spastisite Testleri -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTonusList">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTonusList" aria-expanded="false" aria-controls="collapseTonusList">
+                     <strong><i class="bi bi-heart-pulse"></i> Tonus ve Spastisite Testleri</strong>
+                    </button>
+                  </h2>
+                  <div id="collapseTonusList" class="accordion-collapse collapse" aria-labelledby="headingTonusList" data-bs-parent="#testCategoriesAccordionList">
+                    <div class="accordion-body">
+                       <div class="list-group list-group-flush">
+                          <a href="#test-mas" onclick="showSection('test-mas')" class="list-group-item list-group-item-action">Modifiye Ashworth Skalası (MAS)</a>
+                          <a href="#test-tardieu" onclick="showSection('test-tardieu')" class="list-group-item list-group-item-action">Tardieu Skalası</a>
+                          <!-- PLACEHOLDER: Buraya diğer tonus testleri için linkler eklenecek -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                 <!-- PLACEHOLDER: Buraya diğer test kategorileri (Güç, Koordinasyon, Duyu, Fonksiyonellik vb.) için akordiyonlar eklenecek -->
+                 <!-- Örnek Kategori: Fonksiyonellik ve GYA -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingFonksiyonList">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFonksiyonList" aria-expanded="false" aria-controls="collapseFonksiyonList">
+                     <strong><i class="bi bi-person-check-fill"></i> Fonksiyonellik ve Günlük Yaşam Aktiviteleri (GYA)</strong>
+                    </button>
+                  </h2>
+                  <div id="collapseFonksiyonList" class="accordion-collapse collapse" aria-labelledby="headingFonksiyonList" data-bs-parent="#testCategoriesAccordionList">
+                    <div class="accordion-body">
+                       <div class="list-group list-group-flush">
+                           <a href="#test-barthel" onclick="showSection('test-barthel')" class="list-group-item list-group-item-action">Barthel İndeksi (BI)</a>
+                           <a href="#test-fim" onclick="showSection('test-fim')" class="list-group-item list-group-item-action">Fonksiyonel Bağımsızlık Ölçümü (FIM)</a>
+                           <a href="#test-mrs" onclick="showSection('test-mrs')" class="list-group-item list-group-item-action">Modifiye Rankin Skalası (mRS)</a>
+                          <!-- PLACEHOLDER: Buraya diğer fonksiyonellik testleri için linkler eklenecek -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Bölüm: Örnek Hastalık Detayı - İnme -->
+        <section id="condition-stroke" class="content-section">
+             <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#home" onclick="showSection('home')">Ana Sayfa</a></li>
+                  <li class="breadcrumb-item"><a href="#conditions-list" onclick="showSection('conditions-list')">Hastalıklar</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">İnme (SVO)</li>
+                </ol>
+             </nav>
+
+            <h1 class="display-5">İnme (Serebrovasküler Olay - SVO)</h1>
+            <p class="text-muted"><em>Diğer Adları: Stroke, Beyin Krizi</em></p>
+
+            <section id="stroke-overview" class="mb-5">
+                <h2><i class="bi bi-info-circle-fill"></i>Genel Bakış</h2>
+                <hr>
+                 <img src="placeholder.png" class="img-fluid float-md-end ms-md-3 mb-3" alt="İnme ile ilgili görsel" style="max-width: 300px;">
+                <p>İnme, beyne giden kan akışının ani bir şekilde kesilmesi (iskemik inme) veya beyin içinde bir kanamanın meydana gelmesi (hemorajik inme) sonucu beyin dokusunda hasar oluşmasıdır. Nörolojik fonksiyonlarda ani kayıplara neden olan ve acil tıbbi müdahale gerektiren ciddi bir durumdur.</p>
+                <p>Fizyoterapi, inme sonrası kaybedilen motor fonksiyonların geri kazanılması, denge ve yürümenin iyileştirilmesi, spastisitenin yönetilmesi ve fonksiyonel bağımsızlığın artırılmasında kritik bir role sahiptir.</p>
+                <!-- PLACEHOLDER: Buraya inme etiyolojisi, tipleri, risk faktörleri, patofizyolojisi hakkında ÇOK DAHA FAZLA detay eklenecek. -->
+            </section>
+
+             <section id="stroke-impairments" class="mb-5">
+                <h2><i class="bi bi-heart-pulse-fill"></i>Fizyoterapi Açısından Sık Görülen Bozukluklar</h2>
+                <hr>
+                <p>İnme sonrası görülen bozukluklar, lezyonun yerine ve büyüklüğüne göre büyük çeşitlilik gösterir. En sık karşılaşılanlar şunlardır:</p>
+                <ul>
+                    <li><strong>Motor Bozukluklar:</strong> Hemiparezi/hemipleji (vücudun bir yarısında güçsüzlük/felç), kas tonusu değişiklikleri (spastisite veya hipotonisite), koordinasyon bozuklukları (ataksi).</li>
+                    <li><strong>Denge ve Mobilite Bozuklukları:</strong> Postural kontrol kaybı, artmış düşme riski, yürüme paterninde bozulmalar (örn: Orakalayarak yürüme), yürüme hızında ve dayanıklılığında azalma.</li>
+                    <li><strong>Duyu Bozuklukları:</strong> Vücudun etkilenen yarısında dokunma, ağrı, ısı, pozisyon hissi gibi duyularda kayıp veya değişiklikler.</li>
+                    <li><strong>Algısal Bozukluklar:</strong> Tek taraflı ihmal (neglect - vücudun veya çevrenin bir yarısını fark edememe), apraksi (motor planlama bozukluğu).</li>
+                    <li><strong>İletişim Bozuklukları:</strong> Afazi (konuşma anlama veya üretme bozukluğu), dizartri (konuşma kaslarının kontrolünde zorluk).</li>
+                    <li><strong>Diğerleri:</strong> Yutma güçlüğü (disfaji), mesane/bağırsak kontrol sorunları, yorgunluk, depresyon, bilişsel etkilenim.</li>
+                </ul>
+                 <!-- PLACEHOLDER: Buraya her bir bozukluğun klinik yansımaları hakkında ÇOK DAHA FAZLA detay eklenecek. -->
+            </section>
+
+             <section id="stroke-assessment-goals" class="mb-5">
+                <h2><i class="bi bi-bullseye"></i>Fizyoterapi Değerlendirme Amaçları</h2>
+                <hr>
+                 <!-- PLACEHOLDER: Buraya inme hastalarında FTR değerlendirme amaçları detaylıca yazılacak -->
+                 <p>İnme sonrası fizyoterapi değerlendirmesinin temel amaçları şunlardır:</p>
+                 <ul>
+                    <li>Bozuklukların (güç, tonus, duyu vb.) ve aktivite limitasyonlarının (yürüme, transferler, GYA) derecesini belirlemek.</li>
+                    <li>Hastanın fonksiyonel bağımsızlık düzeyini ve katılım kısıtlılıklarını saptamak.</li>
+                    <li>Düşme riskini değerlendirmek.</li>
+                    <li>Rehabilitasyon potansiyelini ve prognozu tahmin etmeye yardımcı olmak.</li>
+                    <li>Bireyselleştirilmiş, ölçülebilir ve ulaşılabilir tedavi hedefleri belirlemek.</li>
+                    <li>Tedavi sürecindeki ilerlemeyi izlemek ve tedavi planını gerektiğinde revize etmek.</li>
+                    <li>Uygun yardımcı cihaz veya adaptif ekipman ihtiyacını belirlemek.</li>
+                    <li>Taburculuk planlamasına katkıda bulunmak.</li>
+                 </ul>
+            </section>
+
+             <section id="stroke-recommended-tests" class="mb-5">
+                <h2><i class="bi bi-clipboard2-pulse-fill"></i>Önerilen Değerlendirme Testleri</h2>
+                <hr>
+                <p>İnme hastalarında kullanılan testler, hastanın durumu (akut, subakut, kronik), etkilenim düzeyi ve değerlendirme amacına göre seçilir. Yaygın kullanılan bazı testler şunlardır:</p>
+                <div class="accordion" id="strokeTestAccordion">
+                    <!-- Kategori: Denge -->
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="strokeHeadingDenge">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#strokeCollapseDenge" aria-expanded="false" aria-controls="strokeCollapseDenge">
+                            Denge Testleri
+                          </button>
+                        </h3>
+                        <div id="strokeCollapseDenge" class="accordion-collapse collapse" aria-labelledby="strokeHeadingDenge" data-bs-parent="#strokeTestAccordion">
+                          <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="#test-bbs" onclick="showSection('test-bbs')">Berg Denge Ölçeği (BBS)</a>: Statik ve dinamik denge.</li>
+                                <li class="list-group-item"><a href="#test-tug" onclick="showSection('test-tug')">Timed Up and Go (TUG)</a>: Temel fonksiyonel mobilite ve düşme riski.</li>
+                                <!-- PLACEHOLDER: Diğer denge testleri linkleri -->
+                                <li class="list-group-item"><a href="#test-poma" onclick="showSection('test-poma')">Tinetti POMA</a>: Denge ve yürüme bileşenleri.</li>
+                                <li class="list-group-item"><a href="#test-frt" onclick="showSection('test-frt')">Fonksiyonel Uzanma Testi (FRT)</a>: Dinamik denge.</li>
+                            </ul>
+                          </div>
+                        </div>
+                    </div>
+                     <!-- Kategori: Yürüme -->
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="strokeHeadingYurume">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#strokeCollapseYurume" aria-expanded="false" aria-controls="strokeCollapseYurume">
+                            Yürüme Testleri
+                          </button>
+                        </h3>
+                        <div id="strokeCollapseYurume" class="accordion-collapse collapse" aria-labelledby="strokeHeadingYurume" data-bs-parent="#strokeTestAccordion">
+                          <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="#test-10mwt" onclick="showSection('test-10mwt')">10 Metre Yürüme Testi (10MWT)</a>: Yürüme hızı.</li>
+                                <li class="list-group-item"><a href="#test-6mwt" onclick="showSection('test-6mwt')">6 Dakika Yürüme Testi (6MWT)</a>: Yürüme enduransı.</li>
+                                <!-- PLACEHOLDER: Diğer yürüme testleri linkleri -->
+                                <li class="list-group-item"><a href="#test-dgi" onclick="showSection('test-dgi')">Dinamik Yürüme İndeksi (DGI)</a>: Çeşitli görevlerde yürüme.</li>
+                                <li class="list-group-item"><a href="#test-fga" onclick="showSection('test-fga')">Fonksiyonel Yürüme Değerlendirmesi (FGA)</a>: Daha zorlu yürüme görevleri.</li>
+                            </ul>
+                          </div>
+                        </div>
+                    </div>
+                     <!-- Kategori: Spastisite -->
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="strokeHeadingSpastisite">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#strokeCollapseSpastisite" aria-expanded="false" aria-controls="strokeCollapseSpastisite">
+                            Spastisite Testleri
+                          </button>
+                        </h3>
+                        <div id="strokeCollapseSpastisite" class="accordion-collapse collapse" aria-labelledby="strokeHeadingSpastisite" data-bs-parent="#strokeTestAccordion">
+                          <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                               <li class="list-group-item"><a href="#test-mas" onclick="showSection('test-mas')">Modifiye Ashworth Skalası (MAS)</a>: Pasif harekete direnç.</li>
+                               <li class="list-group-item"><a href="#test-tardieu" onclick="showSection('test-tardieu')">Tardieu Skalası</a>: Hıza bağlı direnç ve hareket açısı.</li>
+                            </ul>
+                          </div>
+                        </div>
+                    </div>
+                    <!-- PLACEHOLDER: Diğer test kategorileri (Güç, Fonksiyonellik, Duyu vb.) için akordiyonlar -->
+                     <div class="accordion-item">
+                        <h3 class="accordion-header" id="strokeHeadingFonksiyon">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#strokeCollapseFonksiyon" aria-expanded="false" aria-controls="strokeCollapseFonksiyon">
+                            Fonksiyonellik / GYA
+                          </button>
+                        </h3>
+                        <div id="strokeCollapseFonksiyon" class="accordion-collapse collapse" aria-labelledby="strokeHeadingFonksiyon" data-bs-parent="#strokeTestAccordion">
+                          <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="#test-barthel" onclick="showSection('test-barthel')">Barthel İndeksi (BI)</a>: Temel GYA bağımsızlığı.</li>
+                                <li class="list-group-item"><a href="#test-fim" onclick="showSection('test-fim')">Fonksiyonel Bağımsızlık Ölçümü (FIM)</a>: Kapsamlı fonksiyonel değerlendirme (sertifika gerekebilir).</li>
+                                <li class="list-group-item"><a href="#test-mrs" onclick="showSection('test-mrs')">Modifiye Rankin Skalası (mRS)</a>: Genel sakatlık düzeyi.</li>
+                            </ul>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                 <p class="mt-3 fst-italic">* Test seçimi hastanın bireysel durumuna göre yapılmalıdır.</p>
+            </section>
+
+            <section id="stroke-considerations" class="mb-5">
+                <h2><i class="bi bi-exclamation-triangle-fill"></i>Değerlendirme Sırasında Dikkat Edilmesi Gerekenler</h2>
+                <hr>
+                 <!-- PLACEHOLDER: Buraya inme hastalarında değerlendirme yaparken dikkat edilecek noktalar (güvenlik, yorgunluk, iletişim, kognisyon, neglect vb.) ÇOK DETAYLI yazılacak -->
+                 <ul>
+                     <li><strong>Güvenlik Önceliği:</strong> Düşme riski yüksektir. Değerlendirme sırasında daima hastanın yanında olun, transfer kemeri kullanın.</li>
+                     <li><strong>Yorgunluk Yönetimi:</strong> İnme sonrası yorgunluk yaygındır. Değerlendirmeyi kısa tutun veya parçalara bölün.</li>
+                     <li><strong>İletişim Stratejileri:</strong> Afazi varsa basit, net komutlar kullanın, görsel destek sağlayın. Dizartri varsa konuşmasını anlamak için ek süre tanıyın.</li>
+                     <li><strong>Kognitif Durum:</strong> Hastanın talimatları anlama ve takip etme yeteneğini göz önünde bulundurun.</li>
+                     <li><strong>Tek Taraflı İhmal (Neglect):</strong> Varsa, test materyallerini ve komutları hastanın görebileceği alana yerleştirin, ihmal edilen tarafa dikkat çekin.</li>
+                     <li><strong>Duyusal Kayıplar:</strong> Duyu kaybı dengeyi ve motor kontrolü etkileyebilir, değerlendirmede bunu dikkate alın.</li>
+                     <li><strong>Çevresel Faktörler:</strong> Sessiz, iyi aydınlatılmış ve dikkat dağıtıcı olmayan bir ortam sağlayın.</li>
+                 </ul>
+            </section>
+
+             <section id="stroke-resources" class="mb-5">
+                <h2><i class="bi bi-link-45deg"></i>İlgili Kaynaklar ve Referanslar</h2>
+                <hr>
+                 <!-- PLACEHOLDER: Buraya inme ile ilgili güvenilir kaynaklar (dernekler, kılavuzlar, makaleler) ve bu sayfadaki bilgilerin referansları eklenecek -->
+                 <ul>
+                     <li>Türkiye Fizyoterapistler Derneği - Nörolojik FTR Alt Grubu</li>
+                     <li>American Stroke Association (ASA)</li>
+                     <li>World Stroke Organization (WSO)</li>
+                     <li>Örnek Kılavuz: [İlgili bir klinik kılavuzun adı ve linki]</li>
+                     <li>Referans Makale 1: [Makale künyesi]</li>
+                 </ul>
+            </section>
+
+        </section>
+
+        <!-- Bölüm: Örnek Test Detayı - Berg Denge Ölçeği -->
+        <section id="test-bbs" class="content-section">
+             <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#home" onclick="showSection('home')">Ana Sayfa</a></li>
+                  <li class="breadcrumb-item"><a href="#tests-list" onclick="showSection('tests-list')">Testler</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Berg Denge Ölçeği (BBS)</li>
+                </ol>
+             </nav>
+
+            <h1 class="display-5">Berg Denge Ölçeği (BBS)</h1>
+            <p class="text-muted"><em>Kısaltma: BBS</em></p>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <section id="bbs-purpose" class="mb-5">
+                        <h2><i class="bi bi-bullseye"></i>Amaç</h2>
+                        <hr>
+                        <p>Berg Denge Ölçeği (BBS), özellikle yaşlılarda ve çeşitli nörolojik durumlarda (inme, MS, Parkinson vb.) statik ve dinamik denge yeteneğini kantitatif olarak değerlendirmek için yaygın olarak kullanılan bir klinik ölçüm aracıdır.</p>
+                        <p>Temel amacı, bireyin çeşitli fonksiyonel görevler sırasında dengesini ne kadar iyi koruyabildiğini ölçmek ve düşme riskini öngörmeye yardımcı olmaktır.</p>
+                         <!-- PLACEHOLDER: Buraya BBS'nin amacı ve klinik kullanımı hakkında ÇOK DAHA FAZLA detay eklenecek. -->
+                    </section>
+
+                     <section id="bbs-population" class="mb-5">
+                        <h2><i class="bi bi-people-fill"></i>Hedef Popülasyon</h2>
+                        <hr>
+                        <p>BBS, öncelikle denge sorunları yaşayan yaşlı bireyler için geliştirilmiştir. Ancak geçerliliği ve güvenilirliği şu popülasyonlarda da yaygın olarak gösterilmiştir:</p>
+                        <ul>
+                            <li>İnme sonrası hastalar</li>
+                            <li>Parkinson hastalığı</li>
+                            <li>Multipl Skleroz (MS)</li>
+                            <li>Travmatik Beyin Yaralanması (TBI)</li>
+                            <li>Omurilik Yaralanması (SCI - özellikle inkomplet)</li>
+                            <li>Vestibüler bozukluklar</li>
+                            <li>Amputasyon sonrası</li>
+                            <li>Genel geriatrik popülasyon</li>
+                        </ul>
+                        <!-- PLACEHOLDER: Hangi durumlarda özellikle faydalı olduğu belirtilebilir. -->
+                    </section>
+
+                     <section id="bbs-equipment" class="mb-5">
+                        <h2><i class="bi bi-tools"></i>Gerekli Ekipmanlar</h2>
+                        <hr>
+                         <!-- PLACEHOLDER: Buraya gerekli ekipmanlar ÇOK DETAYLI listelenecek. -->
+                         <ul>
+                             <li>Kronometre veya saat (saniye ölçebilen)</li>
+                             <li>Cetvel veya mezura (cm/inch)</li>
+                             <li>Standart yükseklikte sandalye (kolçaklı)</li>
+                             <li>Standart yükseklikte sandalye (kolçaksız)</li>
+                             <li>Basamak veya tabure (standart yükseklikte, örn: 15-20 cm)</li>
+                             <li>Yerden alınacak bir obje (örn: ayakkabı, terlik)</li>
+                             <li>Puanlama formu ve kalem</li>
+                         </ul>
+                         <img src="placeholder.png" alt="BBS için gerekli ekipmanlar (placeholder)">
+                    </section>
+
+                     <section id="bbs-procedure" class="mb-5">
+                        <h2><i class="bi bi-person-walking"></i>Uygulama Prosedürü</h2>
+                        <hr>
+                        <div class="alert alert-warning" role="alert">
+                          <i class="bi bi-exclamation-triangle-fill me-2"></i> **Güvenlik Uyarısı:** Test boyunca hastanın düşmesini önlemek için yakınında durun ve gerektiğinde destek olmaya hazır olun.
+                        </div>
+                        <p>BBS, 14 farklı denge görevinden oluşur. Her görev 0-4 arası puanlanır. Hastaya her görevin talimatı net bir şekilde verilir ve performansı gözlemlenir.</p>
+                        <h4 class="mt-4">Adım Adım Uygulama (Örnekler):</h4>
+                        <ol>
+                            <li>
+                                <strong>Oturur Pozisyondan Ayağa Kalkma:</strong>
+                                <br><em>Talimat:</em> "Lütfen kollarınızı kavuşturarak (veya yanlarda tutarak) ayağa kalkmaya çalışın."
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Yardımsız kalkabiliyor mu, ellerini kullanıyor mu, dengeyi koruyor mu?
+                                <br><img src="placeholder.png" style="max-width: 200px;" alt="Oturmadan kalkma (placeholder)">
+                            </li>
+                            <li>
+                                <strong>Desteksiz Ayakta Durma (2 dakika):</strong>
+                                <br><em>Talimat:</em> "Lütfen kollarınızı kavuşturarak (veya yanlarda serbest) 2 dakika boyunca desteksiz ayakta durun."
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Süreyi tamamlayabiliyor mu, sallanma miktarı, destek ihtiyacı var mı?
+                            </li>
+                             <li>
+                                <strong>Desteksiz Oturma (2 dakika, sırt desteksiz):</strong>
+                                <br><em>Talimat:</em> "Lütfen kollarınızı kavuşturarak sırtınızı sandalyeye dayamadan oturun."
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Dengeyi koruyabiliyor mu, destek kullanıyor mu?
+                            </li>
+                             <li>
+                                <strong>Ayakta İken Desteksiz Uzanma (Fonksiyonel Uzanma):</strong>
+                                <br><em>Talimat:</em> "Ayaklarınız sabitken, bir kolunuzu 90 derece kaldırın ve parmaklarınızla ileriye doğru mümkün olduğunca uzanın." (Cetvelle ölçüm yapılır)
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Uzanma mesafesi, denge kaybı var mı?
+                            </li>
+                            <li>
+                                <strong>Yerden Obje Alma:</strong>
+                                <br><em>Talimat:</em> "Lütfen önünüze koyduğum şu [obje adı]'nı yerden alın."
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Güvenli bir şekilde alabiliyor mu, denge kaybı var mı?
+                            </li>
+                            <li>
+                                <strong>Arkaya ve Yanlara Dönerek Bakma:</strong>
+                                <br><em>Talimat:</em> "Lütfen (sağ/sol) omzunuzun üzerinden arkanıza bakın." (Her iki taraf için)
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Dönerken dengeyi koruyabiliyor mu, ayaklarını hareket ettiriyor mu?
+                            </li>
+                             <li>
+                                <strong>360 Derece Dönüş:</strong>
+                                <br><em>Talimat:</em> "Lütfen olduğunuz yerde tam bir tur dönün." (Her iki yöne)
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Adım sayısı, dönüş süresi, denge kaybı, süreklilik.
+                            </li>
+                             <li>
+                                <strong>Basamağa Ayak Dokundurma (Ardışık):</strong>
+                                <br><em>Talimat:</em> "Lütfen sırayla her bir ayağınızı önünüzdeki basamağa dokundurun." (Belirli sayıda tekrar, örn: 8 kez)
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Görevi tamamlama, denge kaybı, hız/ritim.
+                            </li>
+                             <li>
+                                <strong>Tandem Duruş (Bir ayak diğerinin önünde):</strong>
+                                <br><em>Talimat:</em> "Lütfen bir ayağınızı diğerinin tam önüne koyarak bu şekilde [X] saniye durun."
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Durabildiği süre, dengeyi koruma şekli.
+                            </li>
+                             <li>
+                                <strong>Tek Ayak Üzerinde Durma:</strong>
+                                <br><em>Talimat:</em> "Lütfen bir ayağınızı kaldırarak tek ayak üzerinde mümkün olduğunca uzun süre durun."
+                                <br><em>Gözlem/Puanlama Kriteri:</em> Durabildiği süre.
+                            </li>
+                            <!-- PLACEHOLDER: BBS'nin diğer 4 maddesi (Sandalyeye Oturma, Oturmadan Ayakta Durmaya Transferler, Ayakta Gözler Kapalı Durma, Ayakta Ayaklar Bitişik Durma) buraya ÇOK DETAYLI açıklanacak. -->
+                        </ol>
+                         <!-- PLACEHOLDER: Uygulama sırasında dikkat edilecek genel püf noktaları eklenecek. -->
+                    </section>
+
+                    <section id="bbs-scoring" class="mb-5">
+                        <h2><i class="bi bi-calculator-fill"></i>Puanlama</h2>
+                        <hr>
+                        <p>Her bir 14 madde, 0'dan 4'e kadar puanlanır. Puanlama kriterleri, görevin ne kadar bağımsız, güvenli ve doğru yapıldığına dayanır.</p>
+                        <ul>
+                            <li><strong>4 Puan:</strong> Görevi bağımsız ve güvenli bir şekilde tamamlar.</li>
+                            <li><strong>3 Puan:</strong> Görevi bağımsız tamamlar ancak denetim/sözel uyarıya ihtiyaç duyar veya hafif zorlanır.</li>
+                            <li><strong>2 Puan:</strong> Görevi minimal fiziksel yardımla tamamlar.</li>
+                            <li><strong>1 Puan:</strong> Görevi orta veya maksimal yardımla tamamlar.</li>
+                            <li><strong>0 Puan:</strong> Görevi yapamaz veya yapmak güvenli değildir.</li>
+                        </ul>
+                        <p><strong>Toplam Puan:</strong> Tüm maddelerden alınan puanların toplamıdır. Minimum 0, maksimum 56 puandır.</p>
+                         <!-- PLACEHOLDER: Her madde için daha spesifik puanlama kriterleri (örn: süreler, mesafeler) eklenebilir veya puanlama formuna atıf yapılabilir. -->
+                         <img src="placeholder.png" alt="BBS Puanlama Formu Örneği (Placeholder)">
+                    </section>
+
+                     <section id="bbs-interpretation" class="mb-5">
+                        <h2><i class="bi bi-graph-up-arrow"></i>Yorumlama</h2>
+                        <hr>
+                        <p>Alınan toplam puan, bireyin denge yeteneği ve düşme riski hakkında bilgi verir. Yüksek puanlar daha iyi dengeyi, düşük puanlar daha fazla denge bozukluğunu ve daha yüksek düşme riskini gösterir.</p>
+                        <p>Genel olarak kabul gören yorumlama aralıkları (Popülasyona göre değişebilir!):</p>
+                        <ul>
+                            <li><strong>41-56 Puan:</strong> Düşük düşme riski (iyi denge).</li>
+                            <li><strong>21-40 Puan:</strong> Orta düşme riski (orta düzeyde denge bozukluğu).</li>
+                            <li><strong>0-20 Puan:</strong> Yüksek düşme riski (ciddi denge bozukluğu).</li>
+                        </ul>
+                        <p><strong>Önemli Eşik Değer (Cut-off) Notu:</strong> Özellikle yaşlı popülasyonda < 45 puan sıklıkla artmış düşme riski ile ilişkilendirilir, ancak bu değer farklı çalışmalarda ve popülasyonlarda değişiklik gösterebilir. Klinik karar verirken sadece puana değil, hastanın genel durumuna bakılmalıdır.</p>
+                        <p><strong>Minimal Klinik Anlamlı Değişim (MCID):</strong> İnme ve yaşlı popülasyonunda MCID değerleri genellikle 4-8 puan arasında rapor edilmiştir (Kaynak belirtilmelidir!). Yani, tedaviden sonra en az bu kadar puanlık bir artış klinik olarak anlamlı kabul edilebilir.</p>
+                         <!-- PLACEHOLDER: Yorumlama ile ilgili ek detaylar, tavan/taban etkileri, farklı popülasyonlardaki cut-off değerleri eklenecek. Kaynak gösterimi çok önemli. -->
+                    </section>
+
+                </div> <!-- col-lg-8 sonu -->
+
+                <div class="col-lg-4">
+                    <!-- Sağ Sütun (Özet, Psikometri vb.) -->
+                     <div class="sticky-top" style="top: 70px;"> <!-- Sayfada kayarken sabit kalması için -->
+                         <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="bi bi-card-checklist"></i> Test Özeti</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Ölçtüğü Alan:</strong> Statik ve Dinamik Denge</p>
+                                <p><strong>Madde Sayısı:</strong> 14</p>
+                                <p><strong>Puan Aralığı:</strong> 0 - 56</p>
+                                <p><strong>Uygulama Süresi:</strong> Yaklaşık 15-20 dakika</p>
+                                <p><strong>Temel Yorum:</strong> Düşük puan = Yüksek düşme riski</p>
+                            </div>
+                        </div>
+
+                         <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-success text-white">
+                               <h5 class="mb-0"><i class="bi bi-check-circle-fill"></i> Psikometrik Özellikler (Özet)</h5>
+                            </div>
+                            <div class="card-body">
+                               <!-- PLACEHOLDER: Psikometrik özellikler (güvenilirlik, geçerlilik) hakkında özet bilgiler buraya yazılacak. -->
+                               <ul>
+                                   <li><strong>Güvenilirlik:</strong> Genellikle iyi ila mükemmel test-tekrar test ve değerlendiriciler arası güvenilirliğe sahiptir (çeşitli popülasyonlarda ICC > 0.80).</li>
+                                   <li><strong>Geçerlilik:</strong> Düşme riski, diğer denge ölçümleri ve fonksiyonel durum ile iyi derecede ilişkili olduğu gösterilmiştir (yapı ve kriter geçerliliği).</li>
+                                   <li><strong>Duyarlılık:</strong> Denge değişikliklerini saptamada duyarlı olduğu kabul edilir.</li>
+                                   <li><strong>Not:</strong> Tavan etkisi (çok iyi durumdaki hastalarda) görülebilir.</li>
+                               </ul>
+                                <small class="text-muted">Detaylı psikometrik bilgi için referanslara bakınız.</small>
+                            </div>
+                        </div>
+
+                         <div class="card shadow-sm">
+                             <div class="card-header bg-info text-white">
+                                 <h5 class="mb-0"><i class="bi bi-link-45deg"></i> Ana Referanslar</h5>
+                             </div>
+                             <div class="card-body">
+                                 <!-- PLACEHOLDER: BBS'nin orijinal makalesi ve önemli validasyon çalışmaları buraya eklenecek -->
+                                 <ul>
+                                     <li>Berg KO, Wood-Dauphinee SL, Williams JI, Maki B. Measuring balance in the elderly: validation of an instrument. Can J Public Health. 1992;83 Suppl 2:S7-11.</li>
+                                     <li>[Diğer önemli referanslar]</li>
+                                 </ul>
+                             </div>
+                         </div>
+                    </div> <!-- sticky-top sonu -->
+                </div> <!-- col-lg-4 sonu -->
+            </div> <!-- row sonu -->
+        </section>
+
+        <!-- Bölüm: Örnek Test Detayı - Timed Up and Go (TUG) -->
+        <section id="test-tug" class="content-section">
+             <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#home" onclick="showSection('home')">Ana Sayfa</a></li>
+                  <li class="breadcrumb-item"><a href="#tests-list" onclick="showSection('tests-list')">Testler</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Timed Up and Go (TUG)</li>
+                </ol>
+             </nav>
+             <h1 class="display-5">Timed Up and Go (TUG)</h1>
+             <p class="text-muted"><em>Kısaltma: TUG</em></p>
+              <!-- PLACEHOLDER: Buraya TUG testinin tüm detayları (Amaç, Popülasyon, Ekipman, Prosedür, Puanlama, Yorumlama, Psikometri, Referanslar) BBS'ye benzer şekilde ÇOK DETAYLI olarak eklenecek. -->
+              <p><em>[Timed Up and Go (TUG) testinin detaylı içeriği buraya eklenecek...]</em></p>
+               <img src="placeholder.png" alt="TUG Testi Kurulumu (Placeholder)">
+               <p><strong>Amaç:</strong> Temel fonksiyonel mobiliteyi, dengeyi ve yürüme hızını değerlendirmek; düşme riskini taramak.</p>
+               <p><strong>Prosedür Özeti:</strong> Hasta standart bir sandalyeden kalkar, 3 metre yürür, döner, sandalyeye geri yürür ve oturur. Bu süre ölçülür.</p>
+               <p><strong>Yorumlama Özeti:</strong> Genellikle yaşlılarda > 12-14 saniye artmış düşme riski ile ilişkilendirilir (Popülasyona göre değişir!).</p>
+               <p><strong>Varyasyonları:</strong> TUG Manuel (bir nesne taşırken), TUG Kognitif (sayı sayarken vb.), TUG Dual-Task.</p>
+               <p><em>[...Diğer tüm detaylar...]</em></p>
+        </section>
+
+        <!-- Bölüm: Örnek Test Detayı - Modifiye Ashworth Skalası (MAS) -->
+        <section id="test-mas" class="content-section">
+             <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#home" onclick="showSection('home')">Ana Sayfa</a></li>
+                  <li class="breadcrumb-item"><a href="#tests-list" onclick="showSection('tests-list')">Testler</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Modifiye Ashworth Skalası (MAS)</li>
+                </ol>
+             </nav>
+             <h1 class="display-5">Modifiye Ashworth Skalası (MAS)</h1>
+              <p class="text-muted"><em>Kısaltma: MAS</em></p>
+              <!-- PLACEHOLDER: Buraya MAS testinin tüm detayları (Amaç, Popülasyon, Ekipman, Prosedür, Puanlama, Yorumlama, Psikometri, Referanslar) BBS'ye benzer şekilde ÇOK DETAYLI olarak eklenecek. -->
+               <p><em>[Modifiye Ashworth Skalası (MAS) testinin detaylı içeriği buraya eklenecek...]</em></p>
+                <img src="placeholder.png" alt="MAS Uygulaması (Placeholder)">
+               <p><strong>Amaç:</strong> Kas tonusunu, özellikle spastisiteyi (pasif harekete karşı hissedilen direnci) değerlendirmek.</p>
+               <p><strong>Prosedür Özeti:</strong> Eklem, yerçekimine karşı elimine edilmiş pozisyonda, pasif olarak hareket açıklığı boyunca (genellikle 1 saniyede) hareket ettirilirken hissedilen direnç derecelendirilir.</p>
+               <p><strong>Puanlama:</strong> 0 (tonus artışı yok) ile 4 (rijidite) arasında 6 basamaklı bir skala (1+ dahil).</p>
+               <p><strong>Yorumlama:</strong> Yüksek puanlar daha fazla spastisiteyi gösterir. Güvenilirliği konusunda tartışmalar vardır, standart uygulama önemlidir.</p>
+                <p><em>[...Diğer tüm detaylar...]</em></p>
+        </section>
+
+         <!-- PLACEHOLDER: Buraya diğer TÜM hastalıklar (#condition-parkinsons, #condition-ms, #condition-sci, #condition-tbi vb.) ve TÜM testler (#test-frt, #test-poma, #test-10mwt, #test-6mwt, #test-tardieu, #test-barthel, #test-fim vb.) için benzer section blokları eklenecek. HER BİRİ İÇİN DETAYLI İÇERİK GİRİLMELİDİR. -->
+
+         <!-- Örnek Placeholder Section -->
+         <section id="condition-parkinsons" class="content-section">
+             <nav aria-label="breadcrumb" class="mb-4"> ... </nav>
+             <h1>Parkinson Hastalığı</h1>
+             <!-- PLACEHOLDER: Parkinson içeriği buraya -->
+             <p><em>[Parkinson hastalığı ile ilgili tüm detaylı bilgiler buraya eklenecek...]</em></p>
+             <h2>Önerilen Testler</h2>
+             <ul>
+                <li><a href="#test-tug" onclick="showSection('test-tug')">Timed Up and Go (TUG)</a></li>
+                <li><a href="#test-bbs" onclick="showSection('test-bbs')">Berg Denge Ölçeği (BBS)</a></li>
+                 <li><a href="#test-..." onclick="showSection('test-...')">Unified Parkinson's Disease Rating Scale (UPDRS) - Motor Kısım</a></li>
+                 <li><a href="#test-..." onclick="showSection('test-...')">Mini-BESTest</a></li>
+                 <li><a href="#test-..." onclick="showSection('test-...')">6 Dakika Yürüme Testi (6MWT)</a></li>
+                 <li><a href="#test-..." onclick="showSection('test-...')">Parkinson Hastalığı Anketi (PDQ-39)</a></li>
+                 <!-- Diğerleri -->
+             </ul>
+             <p><em>[...Diğer tüm detaylar...]</em></p>
+         </section>
+
+         <section id="test-10mwt" class="content-section">
+             <nav aria-label="breadcrumb" class="mb-4"> ... </nav>
+             <h1>10 Metre Yürüme Testi (10MWT)</h1>
+             <!-- PLACEHOLDER: 10MWT içeriği buraya -->
+             <p><em>[10 Metre Yürüme Testi (10MWT) ile ilgili tüm detaylı bilgiler buraya eklenecek...]</em></p>
+         </section>
+         <!-- ... ve diğer tüm bölümler ... -->
+
+
+    </div> <!-- Ana İçerik Alanı Sonu -->
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-dark text-white">
+        <div class="container text-center">
+            <span class="text-muted">© {% assign current_year = 'now' | date: '%Y' %}{{ current_year }} NöroRehab Assess Hub. Tüm hakları saklıdır.</span>
+             <br>
+             <small>Bu site eğitim amaçlıdır ve profesyonel tıbbi tavsiye yerine geçmez.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle (Popper dahil) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Özel JavaScript (Bölümler arası geçiş için) -->
+    <script>
+        const contentSections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+        function showSection(sectionId, clickedLink = null) {
+            // Tüm bölümleri gizle
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Hedef bölümü göster
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                 window.scrollTo(0, 0); // Sayfanın başına git
+            } else {
+                // Hedef yoksa ana sayfayı göster (güvenlik önlemi)
+                 document.getElementById('home').classList.add('active');
+                 window.scrollTo(0, 0);
+            }
+
+
+            // Aktif linki güncelle (eğer navigasyon linki tıklandıysa)
+             navLinks.forEach(link => link.classList.remove('active'));
+             // Eğer tıklanan bir navigasyon linki ise veya sectionId'ye karşılık gelen bir link varsa onu aktif yap
+             const correspondingNavLink = document.querySelector(`.navbar-nav .nav-link[href="#${sectionId}"]`);
+             if (clickedLink && navLinks.contains(clickedLink)) {
+                  clickedLink.classList.add('active');
+             } else if (correspondingNavLink) {
+                 correspondingNavLink.classList.add('active');
+             } else {
+                 // Hiçbiri değilse Ana Sayfa linkini aktif yap
+                 const homeLink = document.querySelector('.navbar-nav .nav-link[href="#home"]');
+                 if(homeLink) homeLink.classList.add('active');
+             }
+
+
+            // Eğer varsa, mobil menüyü kapat
+            const navbarCollapse = document.getElementById('navbarNav');
+            if (navbarCollapse.classList.contains('show')) {
+                var bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                    toggle: false // Sadece kapatmak için
+                });
+                bsCollapse.hide();
+            }
+        }
+
+        // Sayfa ilk yüklendiğinde veya hash değiştiğinde doğru bölümü göster
+        function handleHashChange() {
+            let hash = window.location.hash;
+            // Eğer hash yoksa veya # ise ana sayfayı göster
+            if (!hash || hash === '#') {
+                hash = '#home';
+            }
+            // Baştaki # işaretini kaldır
+            const sectionId = hash.substring(1);
+            showSection(sectionId);
+        }
+
+        // Sayfa yüklendiğinde hash kontrolü yap
+         window.addEventListener('DOMContentLoaded', handleHashChange);
+
+         // Hash değiştiğinde (tarayıcı geri/ileri butonları) kontrol yap
+         window.addEventListener('hashchange', handleHashChange);
+
+        // Sayfa ilk yüklendiğinde Ana Sayfa linkini aktif yap
+        const homeLinkInitial = document.querySelector('.navbar-nav .nav-link[href="#home"]');
+        if(homeLinkInitial && !window.location.hash) {
+            homeLinkInitial.classList.add('active');
+        }
+
+
+    </script>
+
+</body>
+</html>
